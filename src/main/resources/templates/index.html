@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <meta charset="UTF-8"/>
+    </head>
+    
+    <body>
+
+        <div class="container">
+            <h2 class="display-1">Laskuri</h2>
+            <p>
+                <form method="post" action="/newKuvio">
+                    <input class="form-control form-control-lg" type="submit" value="Uusi kuvio"/>
+                </form> 
+            </p>
+            
+
+                <table width="100%">
+                    <thead>
+                        <td>Kuutiot</td>
+                        <td>Litrakoko</td>
+                        <td>Tulo</td>
+                    </thead>
+                <span  th:each="kuvio : ${kuviot}">
+                    <tr>
+                        <td>
+                                <form method="post" action="/editKuvioKuutiot">
+                                    <input class="form-control form-control-lg" type="text" th:value="${kuvio.kuutiot}" name="kuutiot" onchange="this.form.submit()"/>
+                                    <input type="hidden" name="kuvioID" th:value="${kuvio.id}"/>
+                                </form>
+                        </td>
+                        <td>
+                                <form method="post" action="/editKuvioLitrakoko">
+                                    <input class="form-control form-control-lg" type="text" th:value="${kuvio.litrakoko}" name="litrakoko" onchange="this.form.submit()"/>
+                                    <input type="hidden" name="kuvioID" th:value="${kuvio.id}"/>
+                                </form>
+                        </td>
+                        <td>
+                            <input class="form-control form-control-lg" th:value="${kuvio.GetTulo()}" type="text" readonly/>  
+                        </td>
+                        <td>
+                            <p>
+                                <form method="post" action="/poistaKuvio">
+                                    <input class="form-control form-control-lg" type="submit" value="Poista"/>
+                                    <input type="hidden" name="kuvioID" th:value="${kuvio.id}"/>
+                                </form>
+                            </p>
+                        </td>
+                    </tr>
+                </span>
+                </table>
+         
+            <hr/>
+            <label>Keskiarvo: </label>
+            <input class="form-control form-control-lg" type="text" th:value="${keskiarvo}" readonly/>
+            <p><form method="post" action="/reset">
+                <input class="form-control form-control-lg"type="submit" value="Reset">
+            </form></p>
+        </div>
+    </body>
+</html>
