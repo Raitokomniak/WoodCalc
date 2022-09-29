@@ -1,0 +1,11 @@
+version: 1.0
+runtime: python3 
+build:
+  commands:
+    build:
+      - pip install pipenv
+      - pipenv install 
+      - pip install maven
+      - mvn compile
+run: 
+  command: mvn spring-boot:run
